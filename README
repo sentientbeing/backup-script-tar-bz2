@@ -1,0 +1,62 @@
+***this file contains***
+
+this file contains description of the project in the directory that contains this file and its subdirectories
+
+***description of the project***
+
+this project is to create a bash script to backup a selected directory and its content and subdirectories using the CLI application tar and the compression application bzip2
+
+this project was started by Fanda at kdokoli@doma:/home/kdokoli/Dokumenty/fanda/after-2014-03-16/after-2014-07-03/1.unsorted/5.backup-script-tar-bz2.1.sh on 2014-07-08 
+
+this project is under git version control
+
+example of usage:
+kdokoli@doma:~/Dokumenty/fanda/after-2014-03-16/after-2014-07-03/1.unsorted$ bash 15.backup-script-tar-bz2.8.sh "/home/kdokoli/.config/xfce4/" 'xfce4'
+mkdir: adresář „/home/kdokoli/backup/doma/after-2014-07-07/2014-08-16.2“ vytvořen
+running command: tar -cvj -f /home/kdokoli/backup/doma/after-2014-07-07/2014-08-16.2/xfce4.2014-08-16_17-53-14_CEST.tar.bz2  --absolute-names /home/kdokoli/.config/xfce4/
+/home/kdokoli/.config/xfce4/
+/home/kdokoli/.config/xfce4/help.rc
+/home/kdokoli/.config/xfce4/panel/
+/home/kdokoli/.config/xfce4/panel/launcher-13/
+/home/kdokoli/.config/xfce4/panel/launcher-13/14050265413.desktop
+/home/kdokoli/.config/xfce4/panel/launcher-14/
+/home/kdokoli/.config/xfce4/panel/launcher-14/14050286734.desktop
+/home/kdokoli/.config/xfce4/panel/launcher-12/
+/home/kdokoli/.config/xfce4/panel/launcher-12/14050636642.desktop
+/home/kdokoli/.config/xfce4/panel/launcher-7/
+/home/kdokoli/.config/xfce4/panel/launcher-7/14045675471.desktop
+/home/kdokoli/.config/xfce4/panel/launcher-8/
+/home/kdokoli/.config/xfce4/panel/launcher-8/14050635381.desktop
+/home/kdokoli/.config/xfce4/panel/xkb-plugin-9.rc
+/home/kdokoli/.config/xfce4/panel/launcher-11/
+/home/kdokoli/.config/xfce4/panel/launcher-11/14050253261.desktop
+/home/kdokoli/.config/xfce4/xfwm4/
+/home/kdokoli/.config/xfce4/xfconf/
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/parole.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-appfinder.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/ristretto.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-settings-manager.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/keyboards.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
+/home/kdokoli/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-mime-settings.xml
+/home/kdokoli/.config/xfce4/terminal/
+/home/kdokoli/.config/xfce4/terminal/terminalrc
+/home/kdokoli/.config/xfce4/desktop/
+/home/kdokoli/.config/xfce4/desktop/icons.screen0-1008x727.rc
+/home/kdokoli/.config/xfce4/helpers.rc
+/home/kdokoli/.config/xfce4/src/
+/home/kdokoli/.config/xfce4/src/misc/
+-rw-rw-r-- 1 kdokoli kdokoli 6955 Aug 16 17:53 /home/kdokoli/backup/doma/after-2014-07-07/2014-08-16.2/xfce4.2014-08-16_17-53-14_CEST.tar.bz2
+kdokoli@doma:~/Dokumenty/fanda/after-2014-03-16/after-2014-07-03/1.unsorted$
+
+
+
