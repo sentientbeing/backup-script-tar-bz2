@@ -1,0 +1,13 @@
+## this file's description:
+# A gitignore file specifies intentionally untracked files that Git should ignore.
+# Patterns which should be version-controlled and distributed to other repositories via clone (i.e., files that all developers will want to ignore) should go into a .gitignore file.
+# Lines that start with '#' are comments.
+# A blank line matches no files, so it can serve as a separator for readability.
+# See http://git-scm.com/docs/gitignore for more info.
+
+## generic files to ignore:
+# backup files
+*~
+# Fanda puts everything else that he doesn't want to be tracked to the following directory
+.no-version-control/
+
