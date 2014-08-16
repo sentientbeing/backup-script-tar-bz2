@@ -1,0 +1,1 @@
+tar cvfj chromium.tar.bz2 /home/kdokoli/.config/chromium
