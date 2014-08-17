@@ -72,30 +72,31 @@ TARGET_BACKUP_DIR_F=""
 #                  steps: 1. 2. ...
 # 1. set a yet nonexistent directory path
 N_F=1
-while [ -d "TARGET_BACKUP_DIR_ROOT_F/${DATE_F}.${N_F}" ]
+while [ -d "${TARGET_BACKUP_DIR_ROOT_F}/${DATE_F}.${N_F}" ]
 do
 	N_F=$(echo "${N_F} + 1" | bc)
 done
 
-# 2. test if ${N_F} is an integer   ,, TODO: simplify it with 'if [[ "${N_F}" =~ "^[0-9]+$" ]]'
-REGEX_MATCHED_SUCCESS_F="$(test "$(echo "${N_F}" | grep -c -E "^[0-9]+$")" -gt "0" && echo "true" || echo "false")"
-if [ "${REGEX_MATCHED_SUCCESS_F}" -eq "true" ]
+# 2. test if ${N_F} is an integer
+if [[ ${N_F} =~ ^[0-9]+$ ]]
 then
 	TARGET_BACKUP_DIR_F="${TARGET_BACKUP_DIR_ROOT_F}/${DATE_F}.${N_F}"
 else
+	#echo "${N_F}" #uncomment to debug
 	exit_with_custom_message_and_code "20"
 fi
 
 # 3. test if a target directory name is ok
-if [ -n "${TARGET_BACKUP_DIR_F}" ]
+if [ -z "${TARGET_BACKUP_DIR_F}" ]
 then
+	#echo "${TARGET_BACKUP_DIR_F}" #uncomment to debug
 	exit_with_custom_message_and_code "25"
 fi
 
 # 4. test if a target directory exists and terminate if it does
-if [ ! -d "${TARGET_BACKUP_DIR_F}" ]
+if [ -d "${TARGET_BACKUP_DIR_F}" ]
 then
-	exit_with_custom_message_and_code "25"
+	exit_with_custom_message_and_code "26"
 fi
 
 # set the final path
@@ -111,7 +112,7 @@ mkdir --verbose "${TARGET_BACKUP_DIR_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "30"
 cd "${TARGET_BACKUP_DIR_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "35"
-tar cvfj "${SOURCE_PATH_F}" "${TARGET_PATH_F}"
+tar cvjf "${TARGET_PATH_F}" "${SOURCE_PATH_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "40"
 ls -l "${TARGET_PATH_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "45"
