@@ -1,6 +1,6 @@
 # Fanda kdokoli@doma 2014-07-08
 # backup script
-# 2 positional parameters
+# 2 positional parameters, 1 optional
 
 
 #----------- section: define essential functions, defining means no harm no command run:
@@ -21,11 +21,27 @@ function test_last_command_success_or_die_with_custom_exit_code() {
 	return 0
 }
 
+# test if this script was called with the correct number of parameters
+function test_if_number_of_parameters_is_correct() {
+	PASSED_NUMBER_OF_PARAM_F="${1}"
+	MIN_PARAM_F="${2}"
+	MAX_PARAM_F="$((${2}+${3}))"
+	if [ "${PASSED_NUMBER_OF_PARAM_F}" -lt "${MIN_PARAM_F}" ]
+	then
+		exit_with_custom_message_and_code "11"
+	elif [ "${PASSED_NUMBER_OF_PARAM_F}" -gt "${MAX_PARAM_F}" ]
+	then
+		exit_with_custom_message_and_code "12"
+	fi
+}
+
+
 #----------- section: essential test: test if this script has syntax errors in it
 
 
 # test if this script has syntax errors in it
-bash -n "${0}"
+THIS_SCRIPT_FILENAME_F="${0}" # set this variable now, because it is used by the functions called by the function test_last_command_success_or_die_with_custom_exit_code
+bash -n "${THIS_SCRIPT_FILENAME_F}"
 # test the last command (bash -n "${0}") if this script has syntax errors in it
 test_last_command_success_or_die_with_custom_exit_code "${?}" "10"
 
@@ -34,18 +50,12 @@ test_last_command_success_or_die_with_custom_exit_code "${?}" "10"
 
 
 # test if this script was called with the correct number of parameters
-if [ "${#}" -ne "2" ]
-then
-	TMP_EXIT_CODE_1_F="15"
-	echo "Error. Script ${0} says: Error, Exit code: ${TMP_EXIT_CODE_1_F}"
-	exit "${TMP_EXIT_CODE_1_F}"
-fi
+test_if_number_of_parameters_is_correct "${#}" "2" "1" # 2 required parameters and 1 optional
 
 
 
 #----------- section: define variables
 
-THIS_SCRIPT_FILENAME_F="${0}"
 TAR_ARCHIVE_FILENAME_BODY_F="${2}"
 DATE_F=$(date +'%F')
 TIME_F=$(date +'%H-%M-%S_%Z')
@@ -54,8 +64,13 @@ TAR_ARCHIVE_FILENAME_F="${TAR_ARCHIVE_FILENAME_BODY_F}.${DATE_F}_${TIME_F}.${TAR
 SOURCE_PATH_F="${1}"
 TARGET_BACKUP_DIR_ROOT_F="/home/kdokoli/backup/doma/after-2014-07-07"
 TARGET_BACKUP_DIR_F=""
-
-
+SOURCE_EXCLUDE_PATTERN_F=""
+TAR_OPTION_EXCLUDE_F="--exclude=${SOURCE_EXCLUDE_PATTERN_F}"
+if [ "${#}" -gt "2" ]
+then
+	SOURCE_EXCLUDE_PATTERN_F="${3}"
+	TAR_OPTION_EXCLUDE_F="--exclude=${SOURCE_EXCLUDE_PATTERN_F}"
+fi
 
 
 
@@ -112,7 +127,7 @@ mkdir --verbose "${TARGET_BACKUP_DIR_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "30"
 cd "${TARGET_BACKUP_DIR_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "35"
-tar cvjf "${TARGET_PATH_F}" "${SOURCE_PATH_F}"
+tar -cvj -f "${TARGET_PATH_F}" "${TAR_OPTION_EXCLUDE_F}" "${SOURCE_PATH_F}" # TODO: (?) pass --absolute-names
 test_last_command_success_or_die_with_custom_exit_code "${?}" "40"
 ls -l "${TARGET_PATH_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "45"
