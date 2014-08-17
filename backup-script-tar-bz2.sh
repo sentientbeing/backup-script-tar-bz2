@@ -77,8 +77,9 @@ do
 	N_F=$(echo "${N_F} + 1" | bc)
 done
 
-# 2. test if an integer
-if [ "${N_F}" =~ "^[0-9]+$" ]
+# 2. test if ${N_F} is an integer   ,, TODO: simplify it with 'if [[ "${N_F}" =~ "^[0-9]+$" ]]'
+REGEX_MATCHED_SUCCESS_F="$(test "$(echo "${N_F}" | grep -c -E "^[0-9]+$")" -gt "0" && echo "true" || echo "false")"
+if [ "${REGEX_MATCHED_SUCCESS_F}" -eq "true" ]
 then
 	TARGET_BACKUP_DIR_F="${TARGET_BACKUP_DIR_ROOT_F}/${DATE_F}.${N_F}"
 else
