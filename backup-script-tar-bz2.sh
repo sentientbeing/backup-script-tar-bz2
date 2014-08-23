@@ -65,11 +65,9 @@ SOURCE_PATH_F="${1}"
 TARGET_BACKUP_DIR_ROOT_F="/home/kdokoli/backup/doma/after-2014-07-07"
 TARGET_BACKUP_DIR_F=""
 SOURCE_EXCLUDE_PATTERN_F=""
-TAR_OPTION_EXCLUDE_F=""
 if [ "${#}" -gt "2" ]
 then
 	SOURCE_EXCLUDE_PATTERN_F="${3}"
-	TAR_OPTION_EXCLUDE_F="--exclude=${SOURCE_EXCLUDE_PATTERN_F}"
 fi
 
 
@@ -129,10 +127,18 @@ cd "${TARGET_BACKUP_DIR_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "35"
 # TODO: to tar (?) pass --absolute-names or not ?
 # tar -cvj -f "${TARGET_PATH_F}" "${TAR_OPTION_EXCLUDE_F}" --absolute-names "${SOURCE_PATH_F}"
-FINAL_TAR_COMMAND_F="tar -cvj -f ${TARGET_PATH_F} ${TAR_OPTION_EXCLUDE_F} --absolute-names ${SOURCE_PATH_F}"
-echo "running command: ${FINAL_TAR_COMMAND_F}"
-${FINAL_TAR_COMMAND_F}
-test_last_command_success_or_die_with_custom_exit_code "${?}" "40"
+echo "running the main command tar :"
+if [ -n "${SOURCE_EXCLUDE_PATTERN_F}" ]
+then
+	set -x
+	tar -cvj -f "${TARGET_PATH_F}" --exclude="${SOURCE_EXCLUDE_PATTERN_F}" --absolute-names "${SOURCE_PATH_F}"
+else
+	set -x
+	tar -cvj -f "${TARGET_PATH_F}" --absolute-names "${SOURCE_PATH_F}"
+fi
+LAST_COMMAND_EXIT_CODE_F="${?}"
+set +x
+test_last_command_success_or_die_with_custom_exit_code "${LAST_COMMAND_EXIT_CODE_F}" "40"
 ls -l "${TARGET_PATH_F}"
 test_last_command_success_or_die_with_custom_exit_code "${?}" "45"
 
