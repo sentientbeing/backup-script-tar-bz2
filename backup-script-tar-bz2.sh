@@ -54,15 +54,38 @@ test_if_number_of_parameters_is_correct "${#}" "2" "1" # 2 required parameters a
 
 
 
+#----------- section: source donfiguration file
+
+
+# look for config file in the present directory.
+CONFIG_FILE_PATH_F="./${THIS_SCRIPT_FILENAME_F}.conf"
+if [ -f "${CONFIG_FILE_PATH_F}" ]
+then
+	source "${CONFIG_FILE_PATH_F}"
+fi
+
+
+
 #----------- section: define variables
 
 TAR_ARCHIVE_FILENAME_BODY_F="${2}"
-DATE_F=$(date +'%F')
-TIME_F=$(date +'%H-%M-%S_%Z')
+if [ -z "${DATE_FORMAT_F}" ]
+then
+	DATE_FORMAT_F='%F'
+fi
+DATE_F=$(date +"${DATE_FORMAT_F}")
+if [ -z "${TIME_FORMAT_F}" ]
+then
+	TIME_FORMAT_F='%H-%M-%S_%Z'
+fi
+TIME_F=$(date +"${TIME_FORMAT_F}")
 TAR_ARCHIVE_EXTENSION_F="tar.bz2"
 TAR_ARCHIVE_FILENAME_F="${TAR_ARCHIVE_FILENAME_BODY_F}.${DATE_F}_${TIME_F}.${TAR_ARCHIVE_EXTENSION_F}"
 SOURCE_PATH_F="${1}"
-TARGET_BACKUP_DIR_ROOT_F="/home/kdokoli/backup/doma/after-2014-07-07"
+if [ -z "${TARGET_BACKUP_DIR_ROOT_F}" ]
+then
+	TARGET_BACKUP_DIR_ROOT_F="./backup"
+fi
 TARGET_BACKUP_DIR_F=""
 SOURCE_EXCLUDE_PATTERN_F=""
 if [ "${#}" -gt "2" ]

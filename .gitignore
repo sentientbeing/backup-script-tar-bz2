@@ -11,3 +11,5 @@
 # Fanda puts everything else that he doesn't want to be tracked to the following directory
 .no-version-control/
 
+# ignore customized configuration file, include only a template of it
+backup-script-tar-bz2.sh.conf

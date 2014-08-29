@@ -1,0 +1,7 @@
+# if you want to customize the script's behaviour 
+#     (especially the TARGET_BACKUP_DIR_ROOT_F is recommended to customize) 
+#     then rename this file to match the main script's filename 
+#     and add the extension ".conf" to this file's filename
+TARGET_BACKUP_DIR_ROOT_F="./backup"
+DATE_FORMAT_F='%F'
+TIME_FORMAT_F='%H-%M-%S_%Z'
